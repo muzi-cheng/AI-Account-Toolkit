@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.venv
+
+# local config (keep secrets out of git)
+config.py
+!config.py.example
+
+# runtime outputs
+run_state.json
+
+# generated token artifacts
+codex_tokens/**/*.json

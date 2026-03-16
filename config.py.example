@@ -1,0 +1,44 @@
+"""用户配置示例（复制为 config.py 后再填写）。
+
+使用方式：
+1) 复制本文件为 config.py
+2) 按需填写你的真实配置（尤其是 token / key）
+3) 运行 python main.py
+"""
+
+# 基本运行参数
+total_accounts = 1
+max_workers = 1
+
+# 代理池（仅保留 proxy_pool，注册时轮询使用）
+proxy_pool = [
+    "http://127.0.0.1:10001",
+    "http://127.0.0.1:10002",
+]
+
+# Cloudflare 私有邮件服务配置
+cloudflare_api_base = "https://your-mail-service.example.com"
+cloudflare_domain = "example.com"
+cloudflare_jwt_token = "请填写你的 Cloudflare JWT Token"
+cloudflare_poll_attempts = 3
+cloudflare_poll_interval = 5
+
+# 日志模式：dev=开发(详细日志) / prod=生产(关键日志)
+log_mode = "dev"
+
+# 上传目标
+upload_targets = ["cliproxyapi", "sub2api"]
+
+# 单账号完成并上传后随机等待（降速/错峰）
+post_account_wait_min_seconds = 20
+post_account_wait_max_seconds = 60
+
+# CliProxyAPI 配置：固定路径在代码里拼接为 /v0/management/auth-files
+cliproxyapi_api_base_url = "https://your-cliproxyapi.example.com"
+cliproxyapi_api_token = "请填写你的 CliProxyAPI Bearer Token"
+
+# Sub2API 配置
+sub2api_url = "https://your-sub2api.example.com"
+sub2api_auth_mode = "x-api-key"
+sub2api_api_key = "请填写你的 Sub2API x-api-key"
+sub2api_group_ids = [8, 6]
