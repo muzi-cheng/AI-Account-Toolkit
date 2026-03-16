@@ -41,4 +41,4 @@ cliproxyapi_api_token = "请填写你的 CliProxyAPI Bearer Token"
 sub2api_url = "https://your-sub2api.example.com"
 sub2api_auth_mode = "x-api-key"
 sub2api_api_key = "请填写你的 Sub2API x-api-key"
-sub2api_group_ids = [8, 6]
+sub2api_group_ids = []    
