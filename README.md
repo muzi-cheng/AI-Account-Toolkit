@@ -10,7 +10,7 @@
 - ⚡ 支持并发注册多个账号
 - 🔄 自动处理 OAuth 登录
 - ☁️ 支持代理配置
-- 📤 支持上传账号到 Codex / Sub2API 面板
+- 📤 支持上传账号到 cliproxyapi / Sub2API 面板
 
 ## 环境
 
