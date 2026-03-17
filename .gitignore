@@ -3,8 +3,8 @@ __pycache__/
 .venv
 
 # local config (keep secrets out of git)
-config.py
-!config.py.example
+/config.py
+!/config.py.example
 
 # runtime outputs
 run_state.json
