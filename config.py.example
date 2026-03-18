@@ -7,7 +7,7 @@
 """
 
 # 基本运行参数
-total_accounts = 1
+total_accounts = 30
 max_workers = 1
 
 # 代理池（仅保留 proxy_pool，注册时轮询使用）
@@ -32,13 +32,28 @@ upload_targets = ["cliproxyapi", "sub2api"]
 # 单账号完成并上传后随机等待（降速/错峰）
 post_account_wait_min_seconds = 20
 post_account_wait_max_seconds = 60
+maintain_register_retry_limit = 0
 
 # CliProxyAPI 配置：固定路径在代码里拼接为 /v0/management/auth-files
 cliproxyapi_api_base_url = "https://your-cliproxyapi.example.com"
 cliproxyapi_api_token = "请填写你的 CliProxyAPI Bearer Token"
+cliproxyapi_delete_path = "/v0/management/auth-files/{filename}"
+cliproxyapi_delete_method = "DELETE"
 
 # Sub2API 配置
 sub2api_url = "https://your-sub2api.example.com"
 sub2api_auth_mode = "x-api-key"
 sub2api_api_key = "请填写你的 Sub2API x-api-key"
-sub2api_group_ids = []    
+sub2api_group_ids = []
+
+# 本地账号巡检 / 清理
+# 仅当检测接口返回“401 且响应内容包含 deactivated”时，才会执行删除
+token_check_url = "https://chatgpt.com/backend-api/wham/usage"
+token_check_timeout = 12
+token_check_sleep = 0.2
+token_check_input_file = "codex_tokens/local/accounts.json"
+token_check_report_file = "codex_tokens/token_check_report.json"
+
+# 持续保号 / 周期巡检
+maintain_enabled = True
+maintain_check_interval_seconds = 1800

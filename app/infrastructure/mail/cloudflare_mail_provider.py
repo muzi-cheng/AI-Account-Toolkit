@@ -1,25 +1,37 @@
+from __future__ import annotations
+
 import random
 import string
 
 from curl_cffi import requests
 
+from app.domain.models.mailbox import Mailbox
+
 
 class CloudflareMailProvider:
-    """Cloudflare 域名邮箱适配器。"""
+    """Cloudflare/freemail 邮件适配器实现。"""
 
-    def __init__(self, api_base="", domain="", jwt_token="", proxies=None):
-        self.api_base = api_base.strip("/")
-        self.domain = domain.strip("@")
+    def __init__(self, api_base: str = "", domain: str = "", jwt_token: str = "", proxies=None):
+        self.api_base = (api_base or "").strip("/")
+        self.domain = (domain or "").strip("@")
         self.proxies = proxies
         self.jwt_token = (jwt_token or "").strip()
 
-    def create_email(self):
+    def create_mailbox(self) -> Mailbox:
         local = "".join(random.choices(string.ascii_lowercase + string.digits, k=8))
         email = f"{local}@{self.domain}"
-        return email, email
+        return Mailbox(email=email, access_key=email)
 
-    def fetch_first_email(self, email):
-        """适配 /api/emails 接口，返回首封邮件可解析文本。"""
+    def create_email(self):
+        """兼容旧接口，返回 (email, placeholder_password)。"""
+        mailbox = self.create_mailbox()
+        return mailbox.email, mailbox.access_key or mailbox.email
+
+    def fetch_latest_email_content(self, mailbox: Mailbox) -> str | None:
+        return self.fetch_first_email(mailbox.access_key or mailbox.email)
+
+    def fetch_first_email(self, email: str):
+        """兼容 /api/emails 接口，返回首封邮件可解析文本。"""
         try:
             if not self.jwt_token:
                 print("[Debug] jwt_token 为空，无法拉取 Cloudflare 邮件")

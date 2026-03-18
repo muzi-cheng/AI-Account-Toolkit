@@ -41,10 +41,10 @@ class StaticConfig:
         "post_account_wait_min_seconds": 20,
         "post_account_wait_max_seconds": 60,
 
+        "maintain_register_retry_limit": 0,
+
         # 产物路径（统一收敛到 codex_tokens）
         "output_file": "codex_tokens/registered_accounts.txt",
-        "ak_file": "codex_tokens/ak.txt",
-        "rk_file": "codex_tokens/rk.txt",
         "token_json_dir": "codex_tokens",
         "token_storage_dir": "codex_tokens",
         "accounts_detail_file": "codex_tokens/registered_accounts_details.jsonl",
@@ -60,6 +60,8 @@ class StaticConfig:
         "cliproxyapi_api_base_url": "",
         "cliproxyapi_api_path": "/v0/management/auth-files",
         "cliproxyapi_api_token": "",
+        "cliproxyapi_delete_path": "/v0/management/auth-files/{filename}",
+        "cliproxyapi_delete_method": "DELETE",
 
         # Sub2API
         "sub2api_url": "",
@@ -110,7 +112,20 @@ class StaticConfig:
             "gpt-5.1-codex-mini": "gpt-5.1-codex-mini",
             "gpt-5.2": "gpt-5.2",
             "gpt-5.2-codex": "gpt-5.2-codex",
+            "gpt-5.3-codex": "gpt-5.3-codex",
+            "gpt-5.4": "gpt-5.4",
         },
+
+        # 本地账号巡检 / 清理
+        "token_check_url": "https://chatgpt.com/backend-api/wham/usage",
+        "token_check_timeout": 12,
+        "token_check_sleep": 0.2,
+        "token_check_input_file": "codex_tokens/local/accounts.json",
+        "token_check_report_file": "codex_tokens/token_check_report.json",
+
+        # 持续保号 / 周期巡检
+        "maintain_enabled": True,
+        "maintain_check_interval_seconds": 1800,
     }
 
     DEFAULT_RUN_STATE = {

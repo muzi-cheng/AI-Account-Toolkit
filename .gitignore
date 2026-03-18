@@ -1,6 +1,7 @@
 __pycache__/
 *.pyc
 .venv
+.github
 
 # local config (keep secrets out of git)
 /config.py
