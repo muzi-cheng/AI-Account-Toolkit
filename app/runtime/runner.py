@@ -905,12 +905,13 @@ def _is_deactivated_401(status_code: int, response_text: str, response_json=None
         return False
 
     text = str(response_text or "").lower()
-    if "deactivated" in text:
+    keywords = ("deactivated", "invalidated")
+    if any(k in text for k in keywords):
         return True
 
     if isinstance(response_json, dict):
         payload_text = json.dumps(response_json, ensure_ascii=False).lower()
-        if "deactivated" in payload_text:
+        if any(k in payload_text for k in keywords):
             return True
 
     return False
